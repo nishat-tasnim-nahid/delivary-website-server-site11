@@ -20,6 +20,13 @@ async function run() {
         await client.connect();
         const database = client.db("order");
         const usersCollection = database.collection("user");
+        const delivaryItemCollection = database.collection("delivaryItem");
+        // item api
+        app.get('/items', async (req, res) => {
+            const cursor = delivaryItemCollection.find({})
+            const items = await cursor.toArray()
+            res.send(items)
+        })
         // get api
         app.get('/users', async (req, res) => {
             const cursor = usersCollection.find({})
